@@ -22,7 +22,7 @@ CREATE TABLE material (
                           price         double precision NOT NULL,
                           date_purchase date NOT NULL,
                           date_sale     date NOT NULL,
-                          status        int NOT NULL,
+                          status        varchar(50) NOT NULL,
                           id_city       bigint NOT NULL,
                           CONSTRAINT fk_city FOREIGN KEY (id_city) REFERENCES city(id) ON DELETE NO ACTION
 );

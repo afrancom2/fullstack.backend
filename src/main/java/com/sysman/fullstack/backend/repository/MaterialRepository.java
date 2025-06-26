@@ -8,8 +8,6 @@ import java.util.Date;
 import java.util.Set;
 
 public interface MaterialRepository extends JpaRepository<MaterialEntity, Long> {
-    Set<MaterialEntity> findAllMaterials();
-
     Set<MaterialEntity> findByType(MaterialType type);
 
     Set<MaterialEntity> findByDateSale(Date dateSale);

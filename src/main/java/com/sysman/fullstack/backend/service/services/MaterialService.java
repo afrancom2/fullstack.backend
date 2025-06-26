@@ -25,7 +25,7 @@ public class MaterialService implements IMaterialService {
     @Override
     public Set<MaterialResponse> findAllMaterials() {
         log.info("Find all materials Init Service");
-        Set<MaterialResponse> materialResponseSet = materialRepository.findAllMaterials().stream().map(this::entityToResponse).collect(Collectors.toSet());
+        Set<MaterialResponse> materialResponseSet = materialRepository.findAll().stream().map(this::entityToResponse).collect(Collectors.toSet());
         log.info("Find all materials Finish Service");
         return materialResponseSet;
     }
@@ -33,7 +33,9 @@ public class MaterialService implements IMaterialService {
     @Override
     public Set<MaterialResponse> findMaterialsByType(MaterialType materialType) {
         log.info("Find materials by type Init Service");
+        log.info("Find materials by type material Type: " + materialType);
         Set<MaterialResponse> materialResponseSet = materialRepository.findByType(materialType).stream().map(this::entityToResponse).collect(Collectors.toSet());
+        log.info("Find materials by type {}", materialResponseSet.stream().findFirst());
         log.info("Find materials by type Finish Service");
         return materialResponseSet;
     }

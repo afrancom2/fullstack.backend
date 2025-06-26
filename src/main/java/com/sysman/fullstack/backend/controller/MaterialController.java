@@ -34,7 +34,7 @@ public class MaterialController {
         return materialService.findMaterialsByDateSale(dateSale);
     }
 
-    @GetMapping("/by-type")
+    @GetMapping("/by-city")
     public Set<MaterialResponse> getMaterialsByType(@RequestParam String city) {
         return materialService.findMaterialsByCity(city);
     }
