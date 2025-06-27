@@ -16,7 +16,7 @@ Este proyecto es el backend de una aplicación para la gestión de materiales, c
 1. Clona el repositorio:
 
    ```bash
-   git clone https://github.com/afrancom2/tu-repo.git
+   git clone https://github.com/afrancom2/fullstack.backend
    cd fullstack.backend
    ```
 
@@ -32,11 +32,11 @@ Este proyecto es el backend de una aplicación para la gestión de materiales, c
 
 ---
 
-## 🔐 Autenticación JWT
+##  Autenticación JWT
 
 Para acceder a los endpoints protegidos necesitas un **token JWT**. Primero debes autenticarte.
 
-### ✅ Endpoint de Login
+###  Endpoint de Login
 
 ```
 curl --location 'http://localhost:8080/sysman/auth/login' \
@@ -72,7 +72,7 @@ Authorization: Bearer <tu-token>
 
 ---
 
-## 📚 Documentación Swagger
+##  Documentación Swagger
 
 Swagger UI está disponible en:
 
@@ -80,7 +80,7 @@ Swagger UI está disponible en:
 
 ---
 
-## 📘 Endpoints Disponibles
+##  Endpoints Disponibles
 
 | Método | Endpoint                         | Descripción                            | Auth Requerido |
 |--------|----------------------------------|----------------------------------------|----------------|
@@ -93,7 +93,7 @@ Swagger UI está disponible en:
 
 ---
 
-## 👤 Usuario de Prueba
+##  Usuario de Prueba
 
 ```bash
 Número de documento: 123456
@@ -104,7 +104,7 @@ Este usuario es cargado por defecto desde el script `init.sql` al inicializar la
 
 ---
 
-## 🗃️ Estructura del Proyecto
+## ️ Estructura del Proyecto
 
 ```
 fullstack.backend
