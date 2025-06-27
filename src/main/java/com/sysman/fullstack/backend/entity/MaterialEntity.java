@@ -1,14 +1,14 @@
 package com.sysman.fullstack.backend.entity;
 
-import com.sysman.fullstack.backend.util.MaterialStatus;
-import com.sysman.fullstack.backend.util.MaterialType;
+import com.sysman.fullstack.backend.util.enums.MaterialStatus;
+import com.sysman.fullstack.backend.util.enums.MaterialType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "material")
@@ -28,14 +28,14 @@ public class MaterialEntity {
     private MaterialType type;
     private Double price;
     @Column(name = "date_purchase")
-    private Date datePurchase;
+    private LocalDate datePurchase;
     @Column(name = "date_sale")
-    private Date dateSale;
+    private LocalDate dateSale;
 
     @Enumerated(EnumType.STRING)
     private MaterialStatus status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_city")
     private City city;
 }

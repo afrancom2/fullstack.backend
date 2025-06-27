@@ -1,16 +1,13 @@
-package com.sysman.fullstack.backend.model.request;
+package com.sysman.fullstack.backend.model.response;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@Builder
-public class CityRequest {
-    private Long id;
+public class DepartmentResponse {
     private String name;
     private String code;
 }

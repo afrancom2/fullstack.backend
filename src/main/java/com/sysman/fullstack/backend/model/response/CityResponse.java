@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class CityResponse {
     private String name;
     private String code;
+    private DepartmentResponse department;
 }

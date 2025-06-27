@@ -1,18 +1,23 @@
 package com.sysman.fullstack.backend.service.abstract_services;
 
-import com.sysman.fullstack.backend.entity.City;
 import com.sysman.fullstack.backend.model.request.MaterialRequest;
 import com.sysman.fullstack.backend.model.response.MaterialResponse;
-import com.sysman.fullstack.backend.util.MaterialType;
+import com.sysman.fullstack.backend.util.enums.MaterialType;
+import org.apache.coyote.BadRequestException;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 public interface IMaterialService {
     Set<MaterialResponse> findAllMaterials();
+
     Set<MaterialResponse> findMaterialsByType(MaterialType materialType);
-    Set<MaterialResponse> findMaterialsByDateSale(Date saleDate);
+
+    Set<MaterialResponse> findMaterialsByDateSale(LocalDate saleDate);
+
     Set<MaterialResponse> findMaterialsByCity(String city);
-    MaterialResponse saveMaterial(MaterialRequest material);
+
+    MaterialResponse saveMaterial(MaterialRequest material) throws BadRequestException;
+
     MaterialResponse updateMaterial(MaterialRequest material);
 }

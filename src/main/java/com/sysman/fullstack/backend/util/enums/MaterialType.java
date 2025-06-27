@@ -1,4 +1,4 @@
-package com.sysman.fullstack.backend.util;
+package com.sysman.fullstack.backend.util.enums;
 
 public enum MaterialType {
     MINERAL,

@@ -18,7 +18,7 @@ public class City {
     private String code;
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_department")
     private Department department;
 }
