@@ -13,7 +13,7 @@ public interface IMaterialService {
 
     Set<MaterialResponse> findMaterialsByType(MaterialType materialType);
 
-    Set<MaterialResponse> findMaterialsByDatePurchase(LocalDate datePurchase);
+    Set<MaterialResponse> findMaterialsBySalePurchase(LocalDate datePurchase);
 
     Set<MaterialResponse> findMaterialsByCity(Long cityId);
 

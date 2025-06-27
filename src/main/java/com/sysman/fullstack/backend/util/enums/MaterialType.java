@@ -4,5 +4,6 @@ public enum MaterialType {
     MINERAL,
     ELECTRICO,
     MECANICO,
-    CONSTRUCCION
+    CONSTRUCCION,
+    PLASTICO
 }

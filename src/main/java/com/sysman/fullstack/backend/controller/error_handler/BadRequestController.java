@@ -25,7 +25,7 @@ public class BadRequestController {
     }
 
     @ExceptionHandler({NotFoundException.class})
-    public BaseErrorResponse handleForbiddens(RuntimeException exception) {
+    public BaseErrorResponse handleNotFound(RuntimeException exception) {
         return ErrorResponse.builder()
                 .message(exception.getMessage())
                 .status(HttpStatus.NOT_FOUND.name())

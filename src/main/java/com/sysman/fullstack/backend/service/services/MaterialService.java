@@ -54,7 +54,7 @@ public class MaterialService implements IMaterialService {
     public Set<MaterialResponse> findMaterialsBySalePurchase(LocalDate salePurchase) {
         log.info("Find materials by date sale Init Service");
         log.info("Find materials by date sale Service salePurchase: " + salePurchase);
-        Set<MaterialEntity> materialEntitySet = materialRepository.findByDateSale(salePurchase).orElseThrow(() -> new NotFoundException("No data for this date"));
+        Set<MaterialEntity> materialEntitySet = materialRepository.findByDatePurchase(salePurchase).orElseThrow(() -> new NotFoundException("No data for this date"));
         if (materialEntitySet.isEmpty()) {
             log.warn("No materials found for date: {}", salePurchase);
             throw new NotFoundException("No materials found for the given sale purchase");

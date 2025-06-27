@@ -34,10 +34,10 @@ public class MaterialController {
     @GetMapping("/date")
     public Set<MaterialResponse> getMaterialsByDatePurchase(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate datePurchase) {
-        return materialService.findMaterialsByDatePurchase(datePurchase);
+        return materialService.findMaterialsBySalePurchase(datePurchase);
     }
 
-    @GetMapping("/city?cityId")
+    @GetMapping("/city")
     public Set<MaterialResponse> getMaterialsByType(@RequestParam Long cityId) {
         return materialService.findMaterialsByCity(cityId);
     }
