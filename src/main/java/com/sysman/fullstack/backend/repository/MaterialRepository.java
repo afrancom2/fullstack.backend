@@ -11,7 +11,7 @@ import java.util.Set;
 public interface MaterialRepository extends JpaRepository<MaterialEntity, Long> {
     Set<MaterialEntity> findByType(MaterialType type);
 
-    Optional<Set<MaterialEntity>> findByDateSale(LocalDate dateSale);
+    Optional<Set<MaterialEntity>> findByDatePurchase(LocalDate datePurchase);
 
-    Set<MaterialEntity> findByCity_Name(String city);
+    Set<MaterialEntity> findByCity_Id(Long cityId);
 }

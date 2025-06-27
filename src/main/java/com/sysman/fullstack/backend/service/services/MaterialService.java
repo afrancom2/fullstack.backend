@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -50,23 +51,23 @@ public class MaterialService implements IMaterialService {
     }
 
     @Override
-    public Set<MaterialResponse> findMaterialsByDateSale(LocalDate saleDate) {
+    public Set<MaterialResponse> findMaterialsBySalePurchase(LocalDate salePurchase) {
         log.info("Find materials by date sale Init Service");
-        log.info("Find materials by date sale Service saleDate: " + saleDate);
-        Set<MaterialEntity> materialEntitySet = materialRepository.findByDateSale(saleDate).orElseThrow(() -> new NotFoundException("No data for this date"));
+        log.info("Find materials by date sale Service salePurchase: " + salePurchase);
+        Set<MaterialEntity> materialEntitySet = materialRepository.findByDateSale(salePurchase).orElseThrow(() -> new NotFoundException("No data for this date"));
         if (materialEntitySet.isEmpty()) {
-            log.warn("No materials found for date: {}", saleDate);
-            throw new NotFoundException("No materials found for the given sale date");
+            log.warn("No materials found for date: {}", salePurchase);
+            throw new NotFoundException("No materials found for the given sale purchase");
         }
         log.info("Find materials by date sale Finish Service");
         return materialEntitySet.stream().map(this::entityToResponse).collect(Collectors.toSet());
     }
 
     @Override
-    public Set<MaterialResponse> findMaterialsByCity(String city) {
-        log.info("Find materials by date sale Init Service");
-        Set<MaterialResponse> materialResponseSet = materialRepository.findByCity_Name(city).stream().map(this::entityToResponse).collect(Collectors.toSet());
-        log.info("Find materials by date sale Finish Service");
+    public Set<MaterialResponse> findMaterialsByCity(Long city) {
+        log.info("Find materials by city Init Service");
+        Set<MaterialResponse> materialResponseSet = materialRepository.findByCity_Id(city).stream().map(this::entityToResponse).collect(Collectors.toSet());
+        log.info("Find materials by city Finish Service");
         return materialResponseSet;
     }
 
@@ -75,15 +76,16 @@ public class MaterialService implements IMaterialService {
     public MaterialResponse saveMaterial(MaterialRequest material) throws BadRequestException {
         log.info("Save material Init Service");
 
+        log.info("Save material Service validate dates start");
         if (material.getDatePurchase() != null && material.getDateSale() != null &&
                 material.getDatePurchase().isAfter(material.getDateSale())) {
             throw new BadRequestException("The purchase date cannot be after the sale date.");
         }
+        log.info("Save material Service validate dates end");
 
         Long cityId = material.getCity();
         City city = cityRepository.findById(cityId)
                 .orElseThrow(() -> new NotFoundException("City with id " + cityId + " not found"));
-
 
         MaterialEntity materialEntity = MaterialEntity.builder()
                 .name(material.getName())
@@ -91,8 +93,8 @@ public class MaterialService implements IMaterialService {
                 .type(material.getType())
                 .price(material.getPrice())
                 .type(material.getType())
-                .datePurchase(LocalDate.now())
-                .dateSale(LocalDate.now())
+                .datePurchase(material.getDatePurchase())
+                .dateSale(material.getDateSale())
                 .status(material.getStatus())
                 .city(city)
                 .build();
@@ -104,8 +106,18 @@ public class MaterialService implements IMaterialService {
 
     @Override
     @Transactional
-    public MaterialResponse updateMaterial(MaterialRequest material) {
+    public MaterialResponse updateMaterial(Long materialId, MaterialRequest material) throws BadRequestException {
         log.info("Update material Init Service");
+
+        Long cityId = material.getCity();
+        City city = cityRepository.findById(cityId)
+                .orElseThrow(() -> new NotFoundException("City with id " + cityId + " not found"));
+
+        if (material.getDatePurchase() != null && material.getDateSale() != null &&
+                material.getDatePurchase().isAfter(material.getDateSale())) {
+            throw new BadRequestException("The purchase date cannot be after the sale date.");
+        }
+
         MaterialEntity materialEntity = MaterialEntity.builder()
                 .name(material.getName())
                 .description(material.getDescription())
@@ -113,11 +125,22 @@ public class MaterialService implements IMaterialService {
                 .price(material.getPrice())
                 .type(material.getType())
                 .status(material.getStatus())
+                .datePurchase(material.getDatePurchase())
+                .dateSale(material.getDateSale())
+                .city(city)
                 .build();
+
         log.info("Update material DB Service");
         materialRepository.saveAndFlush(materialEntity);
         log.info("Update material Finish Service");
         return entityToResponse(materialEntity);
+    }
+
+    @Override
+    public Set<String> findTypeMaterials() {
+        return Arrays.stream(MaterialType.values())
+                .map(Enum::name)
+                .collect(Collectors.toSet());
     }
 
     private MaterialResponse entityToResponse(MaterialEntity material) {

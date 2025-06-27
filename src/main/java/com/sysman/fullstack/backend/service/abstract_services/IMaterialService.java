@@ -13,11 +13,13 @@ public interface IMaterialService {
 
     Set<MaterialResponse> findMaterialsByType(MaterialType materialType);
 
-    Set<MaterialResponse> findMaterialsByDateSale(LocalDate saleDate);
+    Set<MaterialResponse> findMaterialsByDatePurchase(LocalDate datePurchase);
 
-    Set<MaterialResponse> findMaterialsByCity(String city);
+    Set<MaterialResponse> findMaterialsByCity(Long cityId);
 
     MaterialResponse saveMaterial(MaterialRequest material) throws BadRequestException;
 
-    MaterialResponse updateMaterial(MaterialRequest material);
+    MaterialResponse updateMaterial(Long materialId, MaterialRequest material) throws BadRequestException;
+
+    Set<String> findTypeMaterials();
 }
